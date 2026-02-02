@@ -2,6 +2,7 @@ import click
 import logging
 import sys
 import time
+import random
 from db_manager import DBManager
 from hh_parser import HHParser
 from analytics_manager import AnalyticsManager
@@ -60,7 +61,7 @@ def main(keyword, region, days, limit, proxy):
         logger.info(f"Processing vacancy {i+1}/{len(vacancies)}: {v['title']}")
         skills = parser.get_vacancy_details(v['id'])
         v['skills'] = skills
-        time.sleep(0.1)  # Be nice to the API
+        time.sleep(random.uniform(0.5, 1.5))  # Be nice to the API
 
     # 4. Save to DB
     logger.info("Saving to database...")
