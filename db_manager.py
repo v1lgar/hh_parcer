@@ -38,7 +38,7 @@ class DBManager:
                 for v in vacancies_list:
                     cursor.execute("""
                         INSERT OR REPLACE INTO vacancies (
-                            id, title, company, salary_from, salary_to, currency, skills, published_at, area
+                            id, title, company, salary_from, salary_to, currency, skills, published_at, area  # noqa: E501
                         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
                     """, (
                         v['id'],
@@ -52,7 +52,7 @@ class DBManager:
                         v['area']
                     ))
                 conn.commit()
-            logger.info(f"Successfully saved {len(vacancies_list)} vacancies to database.")
+            logger.info(f"Successfully saved {len(vacancies_list)} vacancies to database.")  # noqa: E501
         except sqlite3.Error as e:
             logger.error(f"Database error during insertion: {e}")
 

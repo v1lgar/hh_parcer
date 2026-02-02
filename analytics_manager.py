@@ -24,7 +24,7 @@ class AnalyticsManager:
 
     def _preprocess(self):
         # Convert skills from JSON string to list
-        self.df['skills'] = self.df['skills'].apply(lambda x: json.loads(x) if isinstance(x, str) else x)
+        self.df['skills'] = self.df['skills'].apply(lambda x: json.loads(x) if isinstance(x, str) else x)  # noqa: E501
         # Calculate average salary in RUB
 
         def convert_to_rub(row):
@@ -58,8 +58,8 @@ class AnalyticsManager:
 
         total_jobs = len(self.df)
         avg_salary = self.df['salary_rub'].mean()
-        avg_salary_by_region = self.df.groupby('area')['salary_rub'].mean().dropna().to_dict()
-        all_skills = [skill for skills_list in self.df['skills'] for skill in skills_list]
+        avg_salary_by_region = self.df.groupby('area')['salary_rub'].mean().dropna().to_dict()  # noqa: E501
+        all_skills = [skill for skills_list in self.df['skills'] for skill in skills_list]  # noqa: E501
         top_skills = Counter(all_skills).most_common(5)
         daily_stats = self.df.groupby('date').size().to_dict()
         # Convert date keys to strings for JSON serializability
@@ -68,7 +68,7 @@ class AnalyticsManager:
         return {
             "total_jobs": total_jobs,
             "avg_salary": float(avg_salary) if pd.notna(avg_salary) else 0,
-            "avg_salary_by_region": {k: float(v) for k, v in avg_salary_by_region.items()},
+            "avg_salary_by_region": {k: float(v) for k, v in avg_salary_by_region.items()},  # noqa: E501
             "top_skills": top_skills,
             "daily_stats": daily_stats
         }

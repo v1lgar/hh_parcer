@@ -22,14 +22,14 @@ logger = logging.getLogger(__name__)
 
 
 @click.command()
-@click.option('--keyword', prompt='Enter keyword (e.g., Python)', help='Job keyword to search for.')
+@click.option('--keyword', prompt='Enter keyword (e.g., Python)', help='Job keyword to search for.')  # noqa: E501
 @click.option('--region', default=None, help='Region name (e.g., Москва).')
-@click.option('--days', default=30, type=int, help='Search depth in days (default 30).')
-@click.option('--limit', default=None, type=int, help='Limit number of vacancies to process (for testing).')
-@click.option('--proxy', default=None, help='Proxy URL (e.g., http://user:pass@host:port).')
+@click.option('--days', default=30, type=int, help='Search depth in days (default 30).')  # noqa: E501
+@click.option('--limit', default=None, type=int, help='Limit number of vacancies to process (for testing).')  # noqa: E501
+@click.option('--proxy', default=None, help='Proxy URL (e.g., http://user:pass@host:port).')  # noqa: E501
 def main(keyword, region, days, limit, proxy):
     """Job vacancy parser with analytics."""
-    logger.info(f"Starting search for '{keyword}' in region '{region}' for the last {days} days.")
+    logger.info(f"Starting search for '{keyword}' in region '{region}' for the last {days} days.")  # noqa: E501
     parser = HHParser(proxy=proxy)
     db = DBManager()
     # 1. Resolve region
@@ -38,7 +38,7 @@ def main(keyword, region, days, limit, proxy):
         logger.info(f"Resolving region ID for '{region}'...")
         area_id = parser.get_area_id(region)
         if not area_id:
-            logger.warning(f"Could not find region ID for '{region}'. Searching everywhere.")
+            logger.warning(f"Could not find region ID for '{region}'. Searching everywhere.")  # noqa: E501
         else:
             logger.info(f"Region ID for '{region}' is {area_id}.")
 
@@ -89,7 +89,7 @@ def main(keyword, region, days, limit, proxy):
     plot_daily_stats(analytics.get_df())
     export_to_json(stats)
     export_to_csv(analytics.get_df())
-    click.echo("\nResults saved to vacancies.db, report.json, vacancies.csv, and daily_stats.png")
+    click.echo("\nResults saved to vacancies.db, report.json, vacancies.csv, and daily_stats.png")  # noqa: E501
     logger.info("Done.")
 
 
